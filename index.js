@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const Task = require('./models/Task')
 
 const app = express()
 const port = 4000;
@@ -15,9 +16,15 @@ db.once("open", function () {
   console.log("DATABASE CONNECTED");
 });
 
+db.on("error", function (err) {
+    console.error("Error connecting to MongoDB:", err);
+  });
+
 app.get('/', (req, res) => {
     res.send('Hello Favour, welcome to express.js')
 })
 
 
 app.listen(port, () => console.log(`Server running on port ${port}`))
+
+// tewq72w4vud2acwq
