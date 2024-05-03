@@ -46,5 +46,23 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+// Delete a task
+router.delete('/:id', async (req, res) => {
+  const taskId = req.params.id
+
+  try {
+    const deletedTask = await TaskModel.findByIdAndDelete(taskId)
+    if(!deletedTask) {
+      return res.status(400).json({ error: 'Task not found' })
+    }
+
+    console.log(`Task ${taskId} deleted successfully`)
+    res.json({ success: true, task: deletedTask, })
+  } catch (error) {
+    console.error('Error deleting task', error)
+    res.status(500).json({ error: 'Internal server error' })
+  }
+})
+
 
 module.exports = router;
