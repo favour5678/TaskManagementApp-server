@@ -29,15 +29,22 @@ router.put('/:id', async (req, res) => {
   const taskId = req.params.id;
   const { task } = req.body;
 
-  try { 
-    const updatedTask = await TaskModel.findByIdAndUpdate( taskId, {content: task}, {new: true} )
-    if(!updatedTask) {
-      return res.status(400).json({ error: 'Task not found' })
+  try {
+    if (!task || !task.content) {
+      return res.status(400).json({ error: 'Task content is required' });
     }
-    res.json({ success: true, task: updatedTask })
+    const updatedTask = await TaskModel.findByIdAndUpdate(taskId, { content: task.content }, { new: true });
+    if (!updatedTask) {
+      return res.status(404).json({ error: 'Task not found' });
+    }
+
+    console.log(`Task ${taskId} updated successfully`);
+    res.json({ success: true, task: updatedTask });
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error'})
+    console.error('Error updating task:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
-})
+});
+
 
 module.exports = router;
