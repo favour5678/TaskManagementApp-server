@@ -38,7 +38,6 @@ router.put('/:id', async (req, res) => {
       return res.status(404).json({ error: 'Task not found' });
     }
 
-    console.log(`Task ${taskId} updated successfully`);
     res.json({ success: true, task: updatedTask });
   } catch (error) {
     console.error('Error updating task:', error);
@@ -56,8 +55,7 @@ router.delete('/:id', async (req, res) => {
       return res.status(400).json({ error: 'Task not found' })
     }
 
-    console.log(`Task ${taskId} deleted successfully`)
-    res.json({ success: true, task: deletedTask, })
+    res.status(200).json({ success: 'Task has been deleted succesfully', task: deletedTask })
   } catch (error) {
     console.error('Error deleting task', error)
     res.status(500).json({ error: 'Internal server error' })
