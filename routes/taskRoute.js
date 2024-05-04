@@ -55,7 +55,7 @@ router.delete('/:id', async (req, res) => {
       return res.status(400).json({ error: 'Task not found' })
     }
 
-    res.status(200).json({ success: 'Task has been deleted succesfully', task: deletedTask })
+    res.json({ success: true, task: deletedTask })
   } catch (error) {
     console.error('Error deleting task', error)
     res.status(500).json({ error: 'Internal server error' })
