@@ -18,7 +18,7 @@ router.post('/', async(req, res) => {
     try {
       const newTask = new TaskModel({ content: task })
       await newTask.save()
-      res.status(201).json({ success: 'Task created successfully'})
+      res.status(201).json({ message: 'Task created successfully'})
     } catch (error) {
       res.status(500).json({ error: 'Internal Server Error'})
     }
@@ -38,7 +38,7 @@ router.put('/:id', async (req, res) => {
       return res.status(404).json({ error: 'Task not found' });
     }
 
-    res.json({ success: true, task: updatedTask });
+    res.status(200).json({ message: 'Task updated successfully', task: updatedTask });
   } catch (error) {
     console.error('Error updating task:', error);
     res.status(500).json({ error: 'Internal server error' });
