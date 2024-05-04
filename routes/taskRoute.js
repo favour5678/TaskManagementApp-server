@@ -18,7 +18,7 @@ router.post('/', async(req, res) => {
     try {
       const newTask = new TaskModel({ content: task })
       await newTask.save()
-      res.json({ success: true })
+      res.status(201).json({ success: 'Task created successfully'})
     } catch (error) {
       res.status(500).json({ error: 'Internal Server Error'})
     }
