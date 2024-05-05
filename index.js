@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const taskRoute = require('./routes/taskRoute')
@@ -10,7 +12,8 @@ app.use(express.json())
 
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://favour_ayomikun:tewq72w4vud2acwq@cluster0.p2fdrqz.mongodb.net/');
+mongoose.connect(process.env.MONGO_URI);
+
 let db = mongoose.connection;
 db.once("open", function () {
   console.log("DATABASE CONNECTED");
